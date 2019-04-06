@@ -1,0 +1,40 @@
+const Koa = require('koa');
+const Router = require('koa-router');
+const cors = require('koa-cors');
+const convert = require('koa-convert')
+const bodyParser = require('koa-bodyparser');
+const static = require('koa-static')
+
+ const session = require('koa-session')
+const path = require('path');
+let db = require('./mysql');
+ let {sessionKey,sessionConfig}= require('./config')
+//引用路由
+const Search = require('./router/serch')
+const Recommend = require('./router/recommend');
+const Home = require('./router/home');
+const User = require('./router/user')
+const app = new Koa();
+//app.keys = ['eee','e']
+ app.keys = sessionKey;
+//使用中间件
+app.use(cors());
+ app.use(session(sessionConfig,app));
+//const whiteList = ['http://localhost:8080','http://localhost:6342']
+app.use(async (ctx, next) => {
+        ctx.db = db;
+        await next()
+    }
+);
+app.use(static(
+    path.join(__dirname, 'public')
+));
+app.use(convert(bodyParser()));
+
+let router = new Router();
+router.use('/home', Home.routes());
+router.use('/recommend', Recommend.routes());
+router.use('/search', Search.routes());
+router.use('/user', User.routes());
+app.use(router.routes());
+app.listen(3000);
