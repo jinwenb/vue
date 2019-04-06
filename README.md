@@ -1,0 +1,5 @@
+![image](https://github.com/jinwenb/vue/blob/master/image/1.PNG)
+![image](https://github.com/jinwenb/vue/blob/master/image/2.PNG)
+![image](https://github.com/jinwenb/vue/blob/master/image/3.PNG)
+![image](https://github.com/jinwenb/vue/blob/master/image/4.PNG)
+![image](https://github.com/jinwenb/vue/blob/master/image/5.PNG)
